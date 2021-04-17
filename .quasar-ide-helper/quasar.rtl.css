@@ -1,5 +1,5 @@
 /*
- * Quasar Framework v1.15.4
+ * Quasar Framework v1.15.10
  * (c) 2015-present Razvan Stoenescu
  * Released under the MIT License.
  */
@@ -653,10 +653,10 @@ input[type='search']::-webkit-search-decoration {
 [dir] .q-btn--flat .q-btn__progress-indicator, [dir] .q-btn--outline .q-btn__progress-indicator {
   background: currentColor;
 }
-[dir=ltr] .q-btn-dropdown--split .q-btn-dropdown__arrow-container {
+[dir=ltr] .q-btn-dropdown--split .q-btn-dropdown__arrow-container:not(.q-btn--outline) {
   border-left: 1px solid rgba(255,255,255,0.3);
 }
-[dir=rtl] .q-btn-dropdown--split .q-btn-dropdown__arrow-container {
+[dir=rtl] .q-btn-dropdown--split .q-btn-dropdown__arrow-container:not(.q-btn--outline) {
   border-right: 1px solid rgba(255,255,255,0.3);
 }
 [dir] .q-btn-dropdown--split .q-btn-dropdown__arrow-container .q-btn__wrapper {
@@ -2202,6 +2202,7 @@ body.desktop .q-checkbox:not(.disabled) .q-checkbox__inner:before {
 .q-dialog__backdrop {
   z-index: -1;
   pointer-events: all;
+  outline: 0;
 }
 [dir] .q-dialog__backdrop {
   background: rgba(0,0,0,0.4);
@@ -2781,7 +2782,7 @@ body.q-ios-padding .q-dialog__inner > div {
 }
 .q-field__bottom {
   font-size: 12px;
-  min-height: 12px;
+  min-height: 20px;
   line-height: 1;
   color: rgba(0,0,0,0.54);
 }
@@ -4130,17 +4131,12 @@ body.platform-ios .q-layout--containerized {
 .q-parallax__media > img,
 .q-parallax__media > video {
   position: absolute;
+  left: 50% /* rtl:ignore */;
   bottom: 0;
   min-width: 100%;
   min-height: 100%;
   will-change: transform;
   display: none;
-}
-[dir=ltr] .q-parallax__media > img, [dir=ltr] .q-parallax__media > video {
-  left: 50%;
-}
-[dir=rtl] .q-parallax__media > img, [dir=rtl] .q-parallax__media > video {
-  right: 50%;
 }
 [dir] .q-popup-edit {
   padding: 8px 16px;
@@ -13250,7 +13246,10 @@ body.platform-android .platform-android-hide {
     display: none !important;
   }
 }
-.q-focus-helper {
+.q-focus-helper,
+.q-focusable,
+.q-manual-focusable,
+.q-hoverable {
   outline: 0;
 }
 body.desktop .q-focus-helper {
@@ -13291,11 +13290,6 @@ body.desktop .q-focus-helper:after {
 }
 [dir] body.desktop .q-focus-helper--round {
   border-radius: 50%;
-}
-body.desktop .q-focusable,
-body.desktop .q-manual-focusable,
-body.desktop .q-hoverable {
-  outline: 0;
 }
 body.desktop .q-focusable:focus > .q-focus-helper,
 body.desktop .q-manual-focusable--focused > .q-focus-helper,

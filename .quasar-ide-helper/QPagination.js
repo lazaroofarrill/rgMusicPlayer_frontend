@@ -50,6 +50,20 @@ export default {
       type: String,
     },
     /**
+     * Color name for component from the Quasar Color Palette
+     * @type {String}
+     */
+    activeColor: {
+      type: String,
+    },
+    /**
+     * Overrides text color (if needed); Color name from the Quasar Color Palette
+     * @type {String}
+     */
+    activeTextColor: {
+      type: String,
+    },
+    /**
      * Notify the component that the background is a dark color (useful when you are using it along with the 'input' prop)
      * @type {Boolean}
      */
@@ -180,6 +194,13 @@ export default {
      * @type {Boolean}
      */
     rounded: {
+      type: Boolean,
+    },
+    /**
+     * Use 'flat' design for current page button
+     * @type {Boolean}
+     */
+    flat: {
       type: Boolean,
     },
     /**

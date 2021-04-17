@@ -4,6 +4,9 @@ import Vuex from 'vuex';
 // import example from './module-example';
 // import { ExampleStateInterface } from './module-example/state';
 
+import api from 'src/store/api'
+import {ApiStateInterface} from 'src/store/api/state';
+
 /*
  * If not building with SSR mode, you can
  * directly export the Store instantiation
@@ -14,6 +17,7 @@ export interface StateInterface {
   // example: ExampleStateInterface;
   // Declared as unknown to avoid linting issue. Best to strongly type as per the line above.
   example: unknown;
+  api: ApiStateInterface
 }
 
 export default store(function ({ Vue }) {
@@ -22,6 +26,7 @@ export default store(function ({ Vue }) {
   const Store = new Vuex.Store<StateInterface>({
     modules: {
       // example
+      api
     },
 
     // enable strict mode (adds overhead!)

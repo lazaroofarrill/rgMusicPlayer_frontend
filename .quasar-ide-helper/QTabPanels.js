@@ -40,14 +40,14 @@ export default {
       type: Boolean,
     },
     /**
-     * Equivalent to using Vue's native include prop for <keep-alive>
+     * Equivalent to using Vue's native include prop for <keep-alive>; Values must be valid Vue component names
      * @type {String|Array|RegExp}
      */
     keepAliveInclude: {
       type: [String,Array,RegExp],
     },
     /**
-     * Equivalent to using Vue's native exclude prop for <keep-alive>
+     * Equivalent to using Vue's native exclude prop for <keep-alive>; Values must be valid Vue component names
      * @type {String|Array|RegExp}
      */
     keepAliveExclude: {

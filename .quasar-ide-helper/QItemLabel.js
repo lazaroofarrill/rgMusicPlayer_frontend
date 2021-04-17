@@ -29,7 +29,7 @@ export default {
       type: Boolean,
     },
     /**
-     * Apply ellipsis when there's not enough space to render on the specified number of lines; If more than one line specified, then it will only work on webkit browsers because it uses the '-webkit-line-clamp' CSS property!
+     * Apply ellipsis when there's not enough space to render on the specified number of lines;
      * @type {Number|String}
      */
     lines: {
