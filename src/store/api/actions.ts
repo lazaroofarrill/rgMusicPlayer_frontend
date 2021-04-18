@@ -9,6 +9,11 @@ const actions: ActionTree<ApiStateInterface, StateInterface> = {
     axios.get('/api/songs').then(response => {
       context.commit('updateSongs', response.data);
     });
+  },
+  search(context, query: string) {
+    axios.get(`/api/songs/search?q=${query}`).then(response => {
+      context.commit('updateSongs', response.data);
+    });
   }
 };
 

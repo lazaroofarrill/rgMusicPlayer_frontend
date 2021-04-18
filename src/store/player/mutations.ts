@@ -1,18 +1,18 @@
 import { MutationTree } from 'vuex';
 import { PlayerStateInterface } from './state';
 import { Howl } from 'howler';
+import { Song } from 'src/store/api/state';
 
 
 const mutation: MutationTree<PlayerStateInterface> = {
   loadPlayer(state: PlayerStateInterface, payload) {
     state.player = payload;
   },
-  mutateCurrentSong(state: PlayerStateInterface, payload: number) {
+  mutateCurrentSong(state: PlayerStateInterface, payload: Song) {
     state.player.unload();
     const oldVol = state.player.volume();
     state.currentSong = payload;
-    state.player = new Howl({ src: [`/api/play/${state.currentSong}`], format: ['mp3'] });
-    state.player.volume(oldVol);
+    state.player = new Howl({ src: [`/api/play/${state.currentSong.id}`], format: ['mp3'], volume: oldVol });
     state.player.once('load', () => {
       state.player.play();
     });
@@ -21,7 +21,6 @@ const mutation: MutationTree<PlayerStateInterface> = {
     if (state.player.playing()) {
       state.player.pause();
     } else {
-      console.log('playing', state.currentSong);
       state.player.play();
     }
   },

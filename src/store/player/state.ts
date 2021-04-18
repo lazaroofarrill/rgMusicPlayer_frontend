@@ -1,8 +1,9 @@
 import { Howl } from 'howler';
+import { Song } from 'src/store/api/state';
 
 
 export interface PlayerStateInterface {
-  currentSong: number,
+  currentSong?: Song,
   timeElapsed: number,
   trackDuration: number,
   startedAt: number | null,
@@ -14,7 +15,6 @@ export interface PlayerStateInterface {
 
 function state(): PlayerStateInterface {
   return {
-    currentSong: 9,
     timeElapsed: 0,
     trackDuration: 0,
     startedAt: null,

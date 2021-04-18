@@ -1,26 +1,17 @@
 import { store } from 'quasar/wrappers';
 import Vuex from 'vuex';
 
-// import example from './module-example';
-// import { ExampleStateInterface } from './module-example/state';
-
 import api from 'src/store/api';
 import { ApiStateInterface } from 'src/store/api/state';
 import player from './player';
 import { PlayerStateInterface } from 'src/store/player/state';
-
-/*
- * If not building with SSR mode, you can
- * directly export the Store instantiation
- */
+import playlist from './playlist';
+import { PlaylistStateInterface } from 'src/store/playlist/state';
 
 export interface StateInterface {
-  // Define your own store structure, using submodules if needed
-  // example: ExampleStateInterface;
-  // Declared as unknown to avoid linting issue. Best to strongly type as per the line above.
-  example: unknown;
   api: ApiStateInterface,
-  player: PlayerStateInterface
+  player: PlayerStateInterface,
+  playlist: PlaylistStateInterface
 }
 
 export default store(function({ Vue }) {
@@ -28,9 +19,9 @@ export default store(function({ Vue }) {
 
   const Store = new Vuex.Store<StateInterface>({
     modules: {
-      // example
       api,
-      player
+      player,
+      playlist
     },
 
     // enable strict mode (adds overhead!)

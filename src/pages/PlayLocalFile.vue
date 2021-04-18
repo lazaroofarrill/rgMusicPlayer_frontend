@@ -1,57 +1,42 @@
 <template>
-  <q-page class="bg-black relative-position" padding>
-    <!-- content -->
-    <div class="absolute-top-left" style="width: 100%; height: 100%">
-      <q-virtual-scroll :items="$store.state.api.songs"
-                        :virtual-scroll-item-size="48"
-                        :virtual-scroll-sticky-size-end="32"
-                        :virtual-scroll-sticky-size-start="48"
-                        style="height: 100%; border-radius: 0"
-                        type="table">
-        <template v-slot:before>
-          <thead class="thead-custom-sticky">
-          <tr>
-            <td v-for="col in columns">{{col}}</td>
-          </tr>
-          </thead>
+  <q-page class="relative-position" padding>
+    <div class="absolute-top-left" style="height: 100%; width: 100%">
+      <q-table :columns="columns" :data="$store.state.api.songs" :pagination.sync="pagination"
+               :table-colspan="3" class="my-sticky-header-table" dense flat
+               hide-pagination row-key="id" style="max-height: 100%"
+               virtual-scroll virtual-scroll-sticky-size-start="48">
+        <template v-slot:body="props">
+          <q-tr :props="props" @dblclick="logDouble($event ,props.row)">
+            <q-td v-for="c in columns">
+              {{props.row[c.field]}}
+            </q-td>
+          </q-tr>
         </template>
-        <template v-slot="{item: row, index}">
-          <!--          <q-item clickable>-->
-          <tr :key="index" @dblclick="logDouble(row.id)">
-            <!--            <td>#{{index}}</td>-->
-            <td :key="index + '-' + col" v-for="col in columns">
-              {{row[col]}}
-            </td>
-            <q-menu context-menu touch-position>
-              <q-list>
-                <q-item clickable v-close-popup>{{row.id}}</q-item>
-              </q-list>
-            </q-menu>
-          </tr>
-
-          <!--          </q-item>-->
-        </template>
-      </q-virtual-scroll>
+      </q-table>
     </div>
   </q-page>
 </template>
 
 <script lang="ts">
   import { defineComponent } from '@vue/composition-api';
+  import { Song } from 'src/store/api/state';
 
   export default defineComponent({
     data() {
       return {
         columns: [
-          'title',
-          'author'
-          // 'path'
-        ]
+          { name: 'title', label: 'Title', field: 'title', sortable: true, align: 'left', style: { width: '100px' } },
+          { name: 'author', label: 'Author', field: 'author', sortable: true, align: 'left' }
+        ],
+        pagination: {
+          rowsPerPage: 0
+        }
       };
     },
     methods: {
-      logDouble(id: number) {
-        this.$store.commit('player/mutateCurrentSong', id);
+      logDouble(events: Event, row: Song) {
+        console.log(events);
+        this.$store.commit('player/mutateCurrentSong', row);
       },
       logSingle() {
       }
@@ -59,18 +44,24 @@
   });
 </script>
 <style lang="scss">
-  .thead-custom-sticky tr > * {
-    position: sticky;
-    opacity: 1;
-    z-index: 1;
-    background-color: white;
+  .my-sticky-header-table {
+    .q-table-top,
+    thead tr:first-child th {
+      /*color: white;*/
+      background-color: white;
+    }
+
+    thead tr th {
+      position: sticky;
+      z-index: 1;
+    }
+
+    thead tr:last-child th {
+      top: 0
+    }
   }
 
-  .thead-custom-sticky tr:last-child > * {
-    top: 0;
-  }
-
-  .tfoot-custom-sticky tr:first-child > * {
-    bottom: 0
+  .q-table-container {
+    box-shadow: none;
   }
 </style>
