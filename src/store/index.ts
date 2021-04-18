@@ -29,5 +29,6 @@ export default store(function({ Vue }) {
     strict: !!process.env.DEBUGGING
   });
 
+
   return Store;
 });

@@ -11,7 +11,7 @@ const mutation: MutationTree<PlayerStateInterface> = {
   mutateCurrentSong(state: PlayerStateInterface, payload: Song) {
     state.player.unload();
     const oldVol = state.player.volume();
-    state.currentSong = payload;
+    state.currentSong = Object.assign({}, state.currentSong, payload);
     state.player = new Howl({ src: [`/api/play/${state.currentSong.id}`], format: ['mp3'], volume: oldVol });
     state.player.once('load', () => {
       state.player.play();

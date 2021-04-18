@@ -35,7 +35,6 @@
     },
     methods: {
       logDouble(events: Event, row: Song) {
-        console.log(events);
         this.$store.commit('player/mutateCurrentSong', row);
       },
       logSingle() {

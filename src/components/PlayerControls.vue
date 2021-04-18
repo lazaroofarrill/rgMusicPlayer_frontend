@@ -5,8 +5,8 @@
         <q-btn flat icon="settings" round/>
       </div>
       <div class="col column items-stretch">
-        <div class="text-h6 text-center">{{$store.state.player.currentSong.title}}</div>
-        <div class="text-body1 text-center">{{$store.state.player.currentSong.author}}</div>
+        <div class="text-h6 text-center">{{$store.getters['player/title']}}</div>
+        <div class="text-body1 text-center">{{$store.getters['player/author']}}</div>
       </div>
       <div class="col flex justify-end">
         <q-input :debounce="500" @clear="$store.dispatch('api/updateSongs')" clearable dark dense
