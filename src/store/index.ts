@@ -4,8 +4,10 @@ import Vuex from 'vuex';
 // import example from './module-example';
 // import { ExampleStateInterface } from './module-example/state';
 
-import api from 'src/store/api'
-import {ApiStateInterface} from 'src/store/api/state';
+import api from 'src/store/api';
+import { ApiStateInterface } from 'src/store/api/state';
+import player from './player';
+import { PlayerStateInterface } from 'src/store/player/state';
 
 /*
  * If not building with SSR mode, you can
@@ -17,16 +19,18 @@ export interface StateInterface {
   // example: ExampleStateInterface;
   // Declared as unknown to avoid linting issue. Best to strongly type as per the line above.
   example: unknown;
-  api: ApiStateInterface
+  api: ApiStateInterface,
+  player: PlayerStateInterface
 }
 
-export default store(function ({ Vue }) {
+export default store(function({ Vue }) {
   Vue.use(Vuex);
 
   const Store = new Vuex.Store<StateInterface>({
     modules: {
       // example
-      api
+      api,
+      player
     },
 
     // enable strict mode (adds overhead!)

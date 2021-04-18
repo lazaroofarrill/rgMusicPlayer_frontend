@@ -10,6 +10,9 @@
     name: 'App',
     created(): void {
       this.$store.dispatch('api/updateSongs');
+    },
+    mounted() {
+      // this.$store.commit('player/loadPlayer');
     }
   });
 </script>

@@ -6,16 +6,18 @@
                         :virtual-scroll-item-size="48"
                         :virtual-scroll-sticky-size-end="32"
                         :virtual-scroll-sticky-size-start="48"
-                        style="height: 100%"
+                        style="height: 100%; border-radius: 0"
                         type="table">
         <template v-slot:before>
-          <thead>
-          <td v-for="col in columns">{{col}}</td>
+          <thead class="thead-custom-sticky">
+          <tr>
+            <td v-for="col in columns">{{col}}</td>
+          </tr>
           </thead>
         </template>
         <template v-slot="{item: row, index}">
           <!--          <q-item clickable>-->
-          <tr :key="index">
+          <tr :key="index" @dblclick="logDouble(row.id)">
             <!--            <td>#{{index}}</td>-->
             <td :key="index + '-' + col" v-for="col in columns">
               {{row[col]}}
@@ -38,7 +40,6 @@
   import { defineComponent } from '@vue/composition-api';
 
   export default defineComponent({
-    // name: 'PageName',
     data() {
       return {
         columns: [
@@ -47,16 +48,29 @@
           // 'path'
         ]
       };
+    },
+    methods: {
+      logDouble(id: number) {
+        this.$store.commit('player/mutateCurrentSong', id);
+      },
+      logSingle() {
+      }
     }
   });
 </script>
 <style lang="scss">
-  /* Stylus Properties */
-  .q-table-container {
-    height: 100% !important /* filling 100% of window vertical measure */
+  .thead-custom-sticky tr > * {
+    position: sticky;
+    opacity: 1;
+    z-index: 1;
+    background-color: white;
   }
 
-  .q-table-middle {
-    height: 100%
+  .thead-custom-sticky tr:last-child > * {
+    top: 0;
+  }
+
+  .tfoot-custom-sticky tr:first-child > * {
+    bottom: 0
   }
 </style>
