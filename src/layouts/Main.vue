@@ -1,23 +1,6 @@
 <template>
   <q-layout view="hHh Lpr fFf">
-    <q-header elevated>
-      <q-toolbar class="bg-primary flex text-body1 q-electron-drag" style="margin-top: 10px" v-show="true">
-        <q-btn dense flat label="File">
-          <q-menu>
-            <q-list>
-              <q-item :key="n" clickable dense v-close-popup v-for="n in 3">Option {{n}}</q-item>
-            </q-list>
-          </q-menu>
-        </q-btn>
-        <q-space/>
-        <q-input :debounce="500" @clear="$store.dispatch('api/updateSongs')" clearable dark dense
-                 input-class="text-body1" label="searh" rounded
-                 standout style="width: 350px" v-model="filter">
-        </q-input>
-      </q-toolbar>
-      <PlayerControls/>
-    </q-header>
-
+    <PlayerControls/>
     <q-footer>
       <q-bar dense>
         hello
@@ -61,7 +44,6 @@
     data() {
       return {
         audioComponent,
-        tick: 0,
         persons: [],
         thumbStyle: {
           right: '4px',
@@ -79,7 +61,6 @@
           opacity: 0.2,
           cursor: 'pointer'
         },
-        theFilter: ''
       };
     },
     setup() {
@@ -87,19 +68,7 @@
       return { leftDrawer };
     },
     computed: {
-      filter: {
-        get() {
-          return this.theFilter;
-        },
-        set(value) {
-          this.theFilter = value;
-          if (value.length === 0) {
-            this.$store.dispatch('api/updateSongs');
-            return;
-          }
-          this.$store.dispatch('api/search', value);
-        }
-      }
+
     }
   });
 </script>

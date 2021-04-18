@@ -4,10 +4,10 @@
       <q-table :columns="columns" :data="$store.state.api.songs" :pagination.sync="pagination"
                :table-colspan="3" class="my-sticky-header-table" dense flat
                hide-pagination row-key="id" style="max-height: 100%"
-               virtual-scroll virtual-scroll-sticky-size-start="48">
+               virtual-scroll>
         <template v-slot:body="props">
           <q-tr :props="props" @dblclick="logDouble($event ,props.row)">
-            <q-td v-for="c in columns">
+            <q-td :key="c.name" v-for="c in columns">
               {{props.row[c.field]}}
             </q-td>
           </q-tr>
@@ -25,7 +25,7 @@
     data() {
       return {
         columns: [
-          { name: 'title', label: 'Title', field: 'title', sortable: true, align: 'left', style: { width: '100px' } },
+          { name: 'title', label: 'Title', field: 'title', sortable: true, align: 'left' },
           { name: 'author', label: 'Author', field: 'author', sortable: true, align: 'left' }
         ],
         pagination: {
