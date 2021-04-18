@@ -35,7 +35,12 @@
     },
     methods: {
       logDouble(events: Event, row: Song) {
-        this.$store.commit('player/mutateCurrentSong', row);
+        let songs = this.$store.state.api.songs;
+        let payload = {
+          songId: row.id,
+          playList: songs
+        };
+        this.$store.dispatch('player/playSong', payload);
       },
       logSingle() {
       }

@@ -2,11 +2,11 @@
   <q-header elevated>
     <q-toolbar class="bg-primary flex text-body1 q-electron-drag" style="margin-top: 10px" v-show="true">
       <div class="col">
-        <q-btn flat icon="settings" round/>
+        <q-btn color="white" icon="queue_music" label="Queue" text-color="primary"/>
       </div>
       <div class="col column items-stretch">
         <div class="text-h6 text-center">{{$store.getters['player/title']}}</div>
-        <div class="text-body1 text-center">{{$store.getters['player/author']}}</div>
+        <div class="text-body2 text-center">{{$store.getters['player/author']}}</div>
       </div>
       <div class="col flex justify-end">
         <q-input :debounce="500" @clear="$store.dispatch('api/updateSongs')" clearable dark dense
@@ -27,17 +27,17 @@
         <q-btn icon="skip_previous"/>
         <q-btn :icon="playing ? 'pause' : 'play_arrow'"
                @click="$store.commit('player/togglePlaying')"/>
-        <q-btn icon="skip_next"/>
+        <q-btn @click="$store.dispatch('player/playNext')" icon="skip_next"/>
       </q-btn-group>
       <div class="q-pa-md">
         {{$store.state.player.player.currentTime}}
       </div>
       <q-btn-group class="bg-white text-grey">
-        <q-btn :class="$store.getters['playlist/repeatStyle'].class"
-               :icon="$store.getters['playlist/repeatStyle'].icon"
-               @click="$store.commit('playlist/toggleRepeat')"></q-btn>
-        <q-btn :class="`${$store.state.playlist.shuffle ? 'text-primary' : ''}`"
-               @click="$store.commit('playlist/toggleShuffle')"
+        <q-btn :class="$store.getters['player/repeatStyle'].class"
+               :icon="$store.getters['player/repeatStyle'].icon"
+               @click="$store.commit('player/toggleRepeat')"></q-btn>
+        <q-btn :class="`${$store.state.player.shuffle ? 'text-primary' : ''}`"
+               @click="$store.commit('player/toggleShuffle')"
                icon="shuffle"></q-btn>
       </q-btn-group>
       <div class="column col">
@@ -104,7 +104,7 @@
             return 0;
           }
         },
-        set(value) {
+        set() {
         }
       },
       duration(): number {

@@ -30,6 +30,25 @@ const mutation: MutationTree<PlayerStateInterface> = {
   updateProgress(state: PlayerStateInterface, payload: number) {
     state.player;
     state.player.seek(payload / 100 * state.player.duration());
+  },
+  toggleRepeat(state: PlayerStateInterface) {
+    state.repeatMode = (state.repeatMode + 1) % 3;
+  },
+  toggleShuffle(state: PlayerStateInterface) {
+    state.shuffle = !state.shuffle;
+  },
+  updatePlaylist(state: PlayerStateInterface, payload) {
+    state.playList = JSON.parse(JSON.stringify(payload.playList));
+    state.currentSongIndex = payload.songId;
+  },
+  dequeue(state: PlayerStateInterface) {
+    let nextSong = state.playList.findIndex(x => x.id === state.currentSongIndex);
+    if (nextSong === state.playList.length - 1) {
+      nextSong = 0;
+    } else {
+      nextSong++;
+    }
+    state.currentSongIndex = state.playList[nextSong].id;
   }
 };
 
