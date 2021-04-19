@@ -12,6 +12,10 @@ const actions: ActionTree<PlayerStateInterface, StateInterface> = {
     context.commit('moveNext');
     context.dispatch('playNext');
   },
+  skipPrev(context) {
+    context.commit('movePrev');
+    context.dispatch('playNext');
+  },
   playNext(context) {
     let pl = context.state.playList;
     if (pl.length > 0) {

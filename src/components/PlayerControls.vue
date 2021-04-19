@@ -26,7 +26,7 @@
         v-show="false"
       />
       <q-btn-group class="bg-white text-primary">
-        <q-btn icon="skip_previous"/>
+        <q-btn @click="$store.dispatch('player/skipPrev')" icon="skip_previous"/>
         <q-btn :icon="playing ? 'pause' : 'play_arrow'"
                @click="$store.commit('player/togglePlaying')"/>
         <q-btn @click="$store.dispatch('player/skipNext')" icon="skip_next"/>

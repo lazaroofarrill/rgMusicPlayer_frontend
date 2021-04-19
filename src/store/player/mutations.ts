@@ -65,6 +65,15 @@ const mutation: MutationTree<PlayerStateInterface> = {
     }
     state.currentSongIndex = state.playList[nextSong].id;
   },
+  movePrev(state: PlayerStateInterface) {
+    let prevSong = state.playList.findIndex(x => x.id === state.currentSongIndex);
+    if (prevSong === 0) {
+      prevSong = state.playList.length - 1;
+    } else {
+      prevSong--;
+    }
+    state.currentSongIndex = state.playList[prevSong].id;
+  },
   enqueue(state: PlayerStateInterface, payload: Song) {
     let index = state.playList.findIndex(x => x.id === state.currentSongIndex);
     console.log('enqueing', index, payload);
