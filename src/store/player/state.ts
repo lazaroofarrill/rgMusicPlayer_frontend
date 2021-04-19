@@ -31,7 +31,7 @@ function state(): PlayerStateInterface {
     trackDuration: 0,
     startedAt: null,
     pausedAt: null,
-    player: new Howl({ src: [''], volume: 0.5 }),
+    player: new Howl({ src: [''], volume: 1 }),
     isPlaying: false,
     volume: 0.5
   };

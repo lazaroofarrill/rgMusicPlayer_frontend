@@ -2,7 +2,7 @@
   <q-header elevated>
     <q-toolbar class="flex text-body1 q-electron-drag" style="margin-top: 10px" v-show="true">
       <div class="col">
-        <q-btn color="white" icon="queue_music" label="Queue" text-color="primary"/>
+        <q-btn dense flat icon="menu" round/>
       </div>
       <div class="col row items-stretch overflow-hidden">
         <div class="col-12 text-no-wrap text-center" style="text-overflow: fade">
