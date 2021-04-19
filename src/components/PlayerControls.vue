@@ -1,14 +1,16 @@
 <template>
   <q-header elevated>
-    <q-toolbar class="bg-primary flex text-body1 q-electron-drag" style="margin-top: 10px" v-show="true">
+    <q-toolbar class="flex text-body1 q-electron-drag" style="margin-top: 10px" v-show="true">
       <div class="col">
         <q-btn color="white" icon="queue_music" label="Queue" text-color="primary"/>
       </div>
-      <div class="col column items-stretch">
-        <div class="text-h6 text-center">{{$store.getters['player/title']}}</div>
-        <div class="text-body2 text-center">{{$store.getters['player/author']}}</div>
+      <div class="col row items-stretch overflow-hidden">
+        <div class="col-12 text-no-wrap text-center" style="text-overflow: fade">
+          {{$store.getters['player/title']}}
+        </div>
+        <div class="col-12 text-body2 text-center">{{$store.getters['player/author']}}</div>
       </div>
-      <div class="col flex justify-end">
+      <div class="col flex justify-end" style="padding: 0 1rem">
         <q-input :debounce="500" @clear="$store.dispatch('api/updateSongs')" clearable dark dense
                  input-class="text-body1" label="searh" rounded
                  standout style="width: 350px" v-model="filter"/>
@@ -27,7 +29,7 @@
         <q-btn icon="skip_previous"/>
         <q-btn :icon="playing ? 'pause' : 'play_arrow'"
                @click="$store.commit('player/togglePlaying')"/>
-        <q-btn @click="$store.dispatch('player/playNext')" icon="skip_next"/>
+        <q-btn @click="$store.dispatch('player/skipNext')" icon="skip_next"/>
       </q-btn-group>
       <div class="q-pa-md">
         {{$store.state.player.player.currentTime}}
@@ -35,7 +37,7 @@
       <q-btn-group class="bg-white text-grey">
         <q-btn :class="$store.getters['player/repeatStyle'].class"
                :icon="$store.getters['player/repeatStyle'].icon"
-               @click="$store.commit('player/toggleRepeat')"></q-btn>
+               @click="$store.dispatch('player/toggleRepeat')"></q-btn>
         <q-btn :class="`${$store.state.player.shuffle ? 'text-primary' : ''}`"
                @click="$store.commit('player/toggleShuffle')"
                icon="shuffle"></q-btn>

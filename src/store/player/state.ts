@@ -6,7 +6,8 @@ export enum RepeatMode {
 }
 
 export interface PlayerStateInterface {
-  playList: Song[];
+  playList: Song[],
+  ogPlaylist: Song[],
   repeatMode: RepeatMode,
   shuffle: boolean
   currentSong: Song,
@@ -23,6 +24,7 @@ export interface PlayerStateInterface {
 function state(): PlayerStateInterface {
   return {
     currentSongIndex: 0,
+    ogPlaylist: [],
     playList: [], repeatMode: RepeatMode.NONE, shuffle: false,
     currentSong: { id: -1, title: '', author: '', path: '' },
     timeElapsed: 0,

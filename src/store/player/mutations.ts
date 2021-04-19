@@ -1,7 +1,8 @@
 import { MutationTree } from 'vuex';
-import { PlayerStateInterface } from './state';
+import { PlayerStateInterface, RepeatMode } from './state';
 import { Howl } from 'howler';
 import { Song } from 'src/store/api/state';
+import { fullCopy, shuffle } from 'src/utils';
 
 
 const mutation: MutationTree<PlayerStateInterface> = {
@@ -36,14 +37,28 @@ const mutation: MutationTree<PlayerStateInterface> = {
   },
   toggleShuffle(state: PlayerStateInterface) {
     state.shuffle = !state.shuffle;
+    if (state.shuffle) {
+      state.playList = shuffle(fullCopy(state.ogPlaylist));
+    } else {
+      state.playList = fullCopy(state.ogPlaylist);
+    }
   },
   updatePlaylist(state: PlayerStateInterface, payload) {
-    state.playList = JSON.parse(JSON.stringify(payload.playList));
+    state.ogPlaylist = fullCopy(payload.playList);
+    if (state.shuffle) {
+      state.playList = shuffle(fullCopy(state.ogPlaylist));
+    } else {
+      state.playList = fullCopy(state.ogPlaylist);
+    }
     state.currentSongIndex = payload.songId;
   },
-  dequeue(state: PlayerStateInterface) {
+  moveNext(state: PlayerStateInterface) {
     let nextSong = state.playList.findIndex(x => x.id === state.currentSongIndex);
     if (nextSong === state.playList.length - 1) {
+      if (state.repeatMode === RepeatMode.NONE) {
+        state.player.off('end');
+        return;
+      }
       nextSong = 0;
     } else {
       nextSong++;
