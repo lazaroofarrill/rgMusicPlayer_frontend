@@ -1,7 +1,7 @@
 import { ActionTree } from 'vuex';
 import { StateInterface } from '../index';
 import { PlayerStateInterface, RepeatMode } from './state';
-import { shuffle } from 'src/utils';
+import { Song } from 'src/store/api/state';
 
 const actions: ActionTree<PlayerStateInterface, StateInterface> = {
   playSong(context, payload) {
@@ -24,6 +24,9 @@ const actions: ActionTree<PlayerStateInterface, StateInterface> = {
     if (context.state.repeatMode !== RepeatMode.NONE) {
       context.state.player.once('end', () => handleEnd(context));
     }
+  },
+  enqueue(context, payload: Song) {
+    context.commit('enqueue', payload);
   }
 };
 

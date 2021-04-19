@@ -5,7 +5,7 @@ const routes: RouteConfig[] = [
     path: '/',
     component: () => import('layouts/Main.vue'),
     children: [
-      { path: '', component: () => import('pages/PlayLocalFile.vue') }
+      { path: '', component: () => import('pages/SongList.vue') }
     ]
   },
 
